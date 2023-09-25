@@ -1,0 +1,85 @@
+﻿@model UsersAndRolesViewModel;
+@{
+    ViewData["Title"] = "Edit User";
+    Layout = "DashbourdLayout";
+}
+<div class="container">
+    <h2 class="text-primary mt-3">@(Model.Id == null ? "Add an account." : "Edit an account.")</h2>
+    <hr />
+
+     <form method="post" asp-action="@(Model.Id == null ? "UserPost" : "UserUpdate")" enctype="multipart/form-data">
+        <div class="row mt-5 justify-content-between">
+            <div class="col-md-6">
+                <input asp-for="Id" hidden />
+                <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="firstName" class="form-control" autocomplete="username" aria-required="true" placeholder="First Name" />
+                    <label asp-for="firstName">First Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="lastName" class="form-control" autocomplete="username" aria-required="true" placeholder="Last Name" />
+                    <label asp-for="lastName">Last Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Email">Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="adress" class="form-control" autocomplete="username" aria-required="true" placeholder="Enter Your Adress" />
+                    <label asp-for="adress">Address</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="phoneNumber" class="form-control" autocomplete="username" aria-required="true" placeholder="Enter Your Adress" />
+                    <label asp-for="phoneNumber">Phone Number</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="BD" type="date" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="BD">Birthday</label>
+                </div>
+        
+                <div class="form-floating mb-3">
+                    <input asp-for="Password" class="form-control" autocomplete="new-password" placeholder="password" />
+                    <label asp-for="Password">@(Model.Id == null? "Password":"Old Password")</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" placeholder="password" />
+                    <label asp-for="ConfirmPassword">@(Model.Id == null ? "Confrim Password" : "New Password")</label>
+                </div>
+         
+                <ul class="list-group my-3">
+                    @for (int i = 0; i < Model.userRoles.Count; i++)
+                    {
+                        <li class="list-group-item d-flex justify-content-between">
+                            <input asp-for="userRoles[i].Name" hidden>
+                            <lablel>@Model.userRoles[i].Name</lablel>
+                            <input asp-for="userRoles[i].IsSelected" type="checkbox">
+                        </li>
+                    }
+                </ul>
+                <div>
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">@(Model.Id == null ? "Register" : "Update")</button>
+                    <a class="d-block btn btn-secondary my-2" asp-action="Users" asp-controller="Dashbourd" asp-route-active="Users">Back To Dashbourd</a>
+                </div>
+               
+                </div>
+            <div class="col-md-5">
+                    <img src="@(Model.profilePicture == null ? @"\Images\User\placeHolder.png":Model.profilePicture)" id="image" style="width:250px;height:250px" alt="progilr Picture" />
+                    <div class="mt-3">
+                        <label asp-for="profilePicture">Profile Pictiure</label>
+                        <input name="profilePicture" id="profilePicture" type="file" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    </div>
+                </div>
+         </div>
+ 
+    </form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.getElementById("profilePicture").onchange = function () {
+            let imgurl = window.URL.createObjectURL(this.files[0])
+            document.getElementById("image").setAttribute("src" , imgurl)
+        }
+    </script>
+}

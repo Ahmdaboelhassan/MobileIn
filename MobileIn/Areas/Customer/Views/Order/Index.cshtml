@@ -1,0 +1,70 @@
+﻿@using Business.SD;
+@model OrderViewModel;
+<link asp-append-version="true" href="~/css/userorder.css" rel="stylesheet" />
+<div class="container">
+    <h2 class="mt-5">Your Order Status</h2>
+    <hr>
+    @if (Model.orderHeader is not null)
+    {
+     <div class="row justify-content-between">
+          <div class="col-md-6">
+            <div class="order-status">
+                <h6>Current Order Status:</h6>
+                <h4>@Model.orderHeader.OrderStatus</h4>
+            </div>
+            <div class="payment-status">
+                <h6>Payment Status:</h6>
+                 <h4>@Model.orderHeader.PaymentStatus</h4>
+            </div>
+            <hr>
+            <h2>Other Info</h2>
+            <ul>
+                    <li>Order Data : <strong class="Text-primary">@Model.orderHeader.OrderDate.ToShortDateString()</strong></li>
+
+                    @if (Model.orderHeader.PaymentStatus == SD.Approved)
+                    {
+                        <li>Payment Date : <strong class="Text-primary">@Model.orderHeader.PaymentDate.ToShortDateString()</strong></li>
+                    }
+                    @if (Model.orderHeader.OrderStatus == SD.Shipping)
+                    {
+                        <li>Shipping Data : <strong class="Text-primary">@Model.orderHeader.ShippingDate.ToShortDateString()</strong></li>
+                    }
+            </ul>
+             <hr>
+            <h2>Order Details</h2>
+            <!-- foreach -->
+            <div class="Product">
+                @foreach(var product in Model.orderDatials){
+                   <h5>@product.Mobile.name <strong>@product.Count</strong></h5>
+                }
+            </div>
+        </div>
+        <div class="col-md-4 user-info">
+            <div class="info mb-5">
+                <img src="@(Model.orderHeader.ApplicationUser.profilePicture == null?"~/Images/User/placeHolder.png":Model.orderHeader.ApplicationUser.profilePicture)" alt="Profile Picture">
+            </div>
+            <div class="info mb-3">
+                <h5>First Name</h5>
+                <span>@Model.orderHeader.firstName</span>
+            </div>
+            <div class="info  mb-3">
+                <h5>Last Name</h5>
+                 <span>@Model.orderHeader.lastName</span>
+            </div>
+            <div class="info  mb-3">
+                <h5>address</h5>
+                <span>@Model.orderHeader.address</span>
+            </div>
+            <div class="info  mb-3">
+                <h5>Phone Number</h5>
+                 <span>@Model.orderHeader.PhoneNumber</span>
+            </div>
+        </div>
+    </div>
+  }
+    @if (Model.orderHeader is  null){
+    <div class="alert alert-dark" role="alert">
+      You Have not make order yet !
+    </div>
+  }
+</div>

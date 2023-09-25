@@ -1,0 +1,95 @@
+﻿body {
+    background-color: #eee;
+}
+.landing {
+    background: #fff;
+    padding: 3rem;
+    text-align: center;
+    background-image : url("../Images/landing.png");
+    background-size:cover;
+    position:relative;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0000001f;
+}
+.landing h1,
+.landing h4 {
+    color: #fff;
+    margin-bottom: .5em;
+    text-transform: capitalize;
+        
+}
+.landing h1 {
+    font-size: 60px;
+}
+.landing h4 {
+    font-size: 30px;
+
+}
+.search-holder{
+    position:relative;
+}
+.search-box {
+    width: 100%;
+    position: relative;
+    margin-top: 3em;
+}
+input[type="text"] {
+    width: 100%;
+    height: 60px;
+    padding: 15px;
+    outline: none;
+    caret: #7186e0;
+    color: #7186e0;
+    font-weight: 800;
+}
+input[type="submit"] {
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    transform: translatey(-50%);
+    border: none;
+    border-radius:5px;
+    background-color: #7186e0;
+    padding: 10px 50px;
+    color: #fff;
+    font-weight: 800;
+}
+.mobiles-container {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 1rem 0;
+}
+
+aside {
+    min-width: 20vw;
+    min-height: 100vh;
+    background-color : #fff;
+    margin-right : 20px;
+}
+aside h5 {
+    font-weight: 800;
+    color: #7186e0;
+    margin:1rem ;
+        
+}
+aside .companies-list,
+aside .mobiles-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+aside .companies-list li,
+aside .mobiles-list li{
+    border-bottom: 2px solid #eee;
+    padding: 10px 20px;
+}
+aside .companies-list li a {
+    text-decoration : none;
+    color : #000;
+}

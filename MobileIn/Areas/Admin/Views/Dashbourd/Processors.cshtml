@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Processor>
+@{
+    Layout = "DashbourdLayout";
+    ViewData["Title"] = "Manage Processor";
+}
+<link href="~/css/dashbourd.css" rel="stylesheet" asp-append-version="true"/>
+<body>
+    <div class="holder">
+        <div class="left-side">
+            <partial name="_DashbourdPartial" />
+        </div>
+        <div class="right-side">
+            <div class="right-side">
+                    <div class="p-5">
+                        <div class="d-flex justify-content-between">
+                            <h2>Mange Processors...</h2>
+                            <a asp-controller="Processor" asp-action="ProcessorGET" class="btn btn-primary px-5 py-3">Add New Processor</a>
+                        </div>
+                        <hr />
+                        <ul class="list-group">
+                            @foreach (var processor in Model)
+                            {
+                              <li class="list-group-item pt-4"> 
+                                  <div class="d-flex justify-content-between">
+                                      <div class="item-text ">
+                                          <h4>@processor.name</h4>
+                                           <span class="text-primary">@processor.company.name </span>        
+                                           <div class="controlls mb-2 mt-4">
+                                                <a class="btn btn-success px-4" asp-action="ProcessorGET" asp-controller="Processor" asp-route-id="@processor.id">Update</a>
+                                                <a class="btn btn-danger" onclick="ProcessorDelete(@processor.id)">Delete</a>
+                                           </div>
+                                      </div>
+                                      <div class="item-img" style="height:100px">
+                                          <img class="h-100" src="@(processor.id == 0 ? String.Empty: $"data:image/*;base64,{Convert.ToBase64String(processor.photo)}" )"/>
+                                      </div>
+                                  </div>
+                              </li>
+                            }
+                        </ul>
+                    </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+
+@section Scripts{
+
+    <script>
+        function ProcessorDelete(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Admin/Processor/ProcessorDelete/" + id,
+                        type: "DELETE",
+                        success: () => {
+                            location.reload();
+
+                        }
+                    })
+
+                }
+            })
+        }
+    </script>
+
+
+}

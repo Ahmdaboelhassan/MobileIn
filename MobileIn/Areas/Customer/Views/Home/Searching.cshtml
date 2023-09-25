@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Mobile>
+<link href="~/css/Searching.css" rel="stylesheet" asp-append-version="true" />
+@if (Model.Count() == 0)
+{
+    <div class="alert alert-dark mt-3" role="alert">
+        There Are No Result
+    </div>
+}
+<form asp-action="Searching">
+    <div class="landing">
+        <div class="overlay"></div>
+        <div class="search-holder">
+            <div class="search-text">
+                <h1>welcome to MobileIn</h1>
+                <h4>Searching For Your Need</h4>
+            </div>
+            <div class="search-box">
+                <input type="text" name="search" />
+                <input type="submit" value="Search" />
+            </div>
+        </div>
+    </div>
+</form>
+@if (Model.Count() > 0)
+{
+    <section class="mobiles row mx-0  mt-5">
+        @foreach (var Mobile in Model)
+        {
+            <div class="card col-sm-12 col-lg-3" style="min-height:600px">
+                <img src="@Mobile.photoURL" class="card-img-top" style="height:225px" alt="Mobile Photo">
+                <div class="card-body">
+                    <h5 class="card-title" style="height:50px;">@Mobile.name</h5>
+                    <span style="color:#7186e0">Mobile From @Mobile.company.name  <span>@Mobile.yearRelease</span></span>
+                    <ul class="list-group list-group-flush mt-3">
+                        <li class="ps-0 list-group-item d-flex justify-content-between">
+                            <span><i class="fa-solid fa-microchip"></i> @Mobile.processor.name</span>
+                            <span style="color:#7186e0">@(Mobile.RAM) GB RAM</span>
+                        </li>
+                        <li class="ps-0 list-group-item">@(Mobile.size) mm</li>
+                        <li class="ps-0 list-group-item mt-5"><h2 style="color:#7186e0">@Mobile.price.ToString("C")</h2></li>
+                    </ul>
+                    <a class="btn text-light w-100" style="background:#7186e0" asp-action="AddToShoppingList" asp-route-mobileId="@Mobile.id" asp-controller="ShoppingList"> <i class="fa-solid fa-cart-shopping fa-bounce"></i> Add To Shpping List</a>
+                </div>
+            </div>
+        }
+    </section>
+    }

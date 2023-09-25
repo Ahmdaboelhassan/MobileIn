@@ -1,0 +1,71 @@
+﻿@model ProcessorViewModel;
+@{
+    SelectList companies = new SelectList(Model.Companies, "id", "name");
+    Layout = "DashbourdLayout";
+}
+
+<div class="container mt-5">
+
+    <h3 style="color:#3f51b5"> @(Model.processor.id == 0 ? "Add New Processor" : "Update Current Processor") </h3>
+    <hr />
+
+    <form class="row justify-content-between" method="post" asp-action="@(Model.processor.id == 0 ? "InsertProcessor" : "UpdateProcessor")" asp-controller="Processor" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input hidden asp-for="processor.id" />
+         <div class="col-md-7">
+            <div class="form-group">
+                <label> Processor Name</label>
+                <input asp-for="processor.name" class="form-control" minlength="2" />
+            </div> 
+            <div class="form-group mt-2">
+                <select class="form-control" asp-for="processor.companyId" asp-items="@companies">
+                    <option value="">Select Company</option>
+                </select>
+            </div> 
+            <div class="form-group mt-2">
+                <label> Processor Image</label>
+                <input name="image" id="imageInput" type="file" class="form-control" accept=".jpg , .png">
+             </div>
+            <div class=" d-flex align-items-center flex-wrap">
+                @if (Model.processor.id == 0)
+                {
+                    <button type="submit" class="btn btn-success px-5 me-4 mt-3">Add</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-warning px-5 me-4 mt-3">Update</button>
+                }
+                <a class="btn btn-outline-secondary px-5 mt-3" asp-controller="Dashbourd" asp-action="Processors" asp-route-active="Processors">Back To Dashbourd</a>
+            </div>
+            
+        </div>
+        <div class="col-md-4 mt-4 @(Model.processor.id == 0 ? "d-none":"")" id="imageholder">
+            <h3>Processor Photo</h3>
+            <div class="form-group">
+                <img src="@(Model.processor.id == 0 ? String.Empty: $"data:image/*;base64,{Convert.ToBase64String(Model.processor.photo)}")" alt="Processor Photo" id="img" class="w-100" />
+            </div>
+        </div>
+        
+    </form>
+</div>
+@section Scripts{
+@{
+        <partial name="_ValidationScriptsPartial" />
+    <script>
+       $(document).ready(()=>{
+
+            $("#imageInput").on("change", function () {
+                
+                var imageUrl = window.URL.createObjectURL(this.files[0]);
+                    document.getElementById("img").setAttribute("src", imageUrl)
+                document.getElementById("imageholder").classList.remove("d-none");
+
+            })
+
+       })
+          
+    
+    </script>
+
+}
+}

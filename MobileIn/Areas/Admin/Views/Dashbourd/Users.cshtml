@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    Layout = "DashbourdLayout";
+    ViewData["Title"] = "Manage Users";
+}
+
+<link href="~/css/dashbourd.css" rel="stylesheet" asp-append-version="true" />
+<body>
+    <div class="holder">
+        <div class="left-side">
+            <partial name="_DashbourdPartial" />
+        </div>
+        <div class="right-side">
+            <div class="p-5">
+                <div class="d-flex justify-content-between">
+                    <h2>Mange Users...</h2>
+                    <a asp-controller="User" asp-action="UserGet" class="btn btn-primary px-5 py-3">Add New User</a>
+                </div>
+                <hr />
+                <table class="stripe hover" id="UsersTable">
+                <thead>
+                    <th >FirstName</th>
+                    <th >LastName</th>
+                    <th >UserName</th>
+                    <th >Manage</th>    
+                </thead>
+            </table>
+
+        </div>
+    </div>
+</body>
+
+@section Scripts{
+
+    <script>
+
+        let UsersTable = $('#UsersTable').DataTable({
+            ajax: {
+                url: '/Admin/Dashbourd/UsersJson',
+
+            },
+            columns: [
+                { data: "firstName", width: "25%" },
+                { data: "lastName", width: "25%" },
+                { data: "userName", width: "30%" },
+                {
+                    data: "id", width: "20%"
+                    , render: function (data) {
+                        return `<a class="btn btn-success d-block" href="/Admin/User/UserGET/?id=${data}">Update</a>` }
+                },
+            ]
+        });
+        
+    </script>
+
+
+}

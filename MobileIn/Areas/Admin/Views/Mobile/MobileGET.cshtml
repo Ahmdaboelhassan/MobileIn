@@ -1,0 +1,121 @@
+﻿@model MobileViewModel
+@{
+    SelectList Companies = new SelectList(Model.Companies, "id", "name");
+    SelectList Processors = new SelectList(Model.Processors, "id", "name");
+    Layout = "DashbourdLayout";
+
+}
+
+<div class="container mt-5">
+
+    <h3 style="color:#3f51b5"> @(Model.Mobile.id == 0 ? "Add New Mobile" : "Update Current Mobile") </h3>
+    <hr />
+    <form asp-action="@(Model.Mobile.id == 0 ? "InsertMobile" : "UpdateMobile")" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="Mobile.id"  hidden/>
+        <div class="row justify-content-between">
+            <div class="col-6">
+                <div class="mt-2">
+                    <input class="form-control" asp-for="Mobile.name" placeholder="Mobile Name" minlength="2" />
+                </div>
+                <div class="row">
+                    <div class="mt-2 col-6">
+                        <select class="form-control" asp-items="Companies" asp-for="Mobile.companyId">
+                            <option value="">Select Company</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 col-6">
+                        <select class="form-control" asp-items="Processors" asp-for="Mobile.processorId">
+                            <option value="">Select Processor</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mt-2 col-6">
+                        <select class="form-control" asp-for="Mobile.RAM">
+                            <option value="">Select RAM Size</option>
+                            <option value="@int.Parse("2")">2 Gb</option>
+                            <option value="@int.Parse("4")">4 Gb</option>
+                            <option value="@int.Parse("6")">6 Gb</option>
+                            <option value="@int.Parse("8")">8 Gb</option>
+                            <option value="@int.Parse("10")">10 Gb</option>
+                            <option value="@int.Parse("12")">12 Gb</option>
+                            <option value="@int.Parse("14")">14 Gb</option>
+                            <option value="@int.Parse("16")">16 Gb</option>
+                            <option value="@int.Parse("18")">18 Gb</option>
+                            <option value="@int.Parse("20")">20 Gb</option>
+                            <option value="@int.Parse("22")">22 Gb</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 col-6">
+                        <input class="form-control" asp-for="Mobile.size" placeholder="Height X Width"  />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mt-2 col-6">
+                        <input class="form-control" asp-for="Mobile.price" placeholder="Price" value="@(Model.Mobile.id == 0 ? "" : Model.Mobile.price)" />
+                    </div>
+                    <div class="mt-2 col-6">
+                        <input id="yearRelease" class="form-control" asp-for="Mobile.yearRelease" placeholder="Year Release" value="@(Model.Mobile.id == 0 ? "" : Model.Mobile.yearRelease)" />
+                    </div>
+                </div>
+               
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <textarea class="form-control" placeholder="Write A Description Of Mobile" asp-for="Mobile.description" rows="4" style="resize:none"></textarea>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input name="image" id="imgInput" type="file" class="form-control" accept=".jpg , .png">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class=" d-flex align-items-center flex-wrap">
+                        @if (Model.Mobile.id == 0)
+                        {
+                            <button type="submit" class="btn btn-success px-5 me-4 mt-3">Add</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-warning px-5 me-4 mt-3">Update</button>
+                        }
+                        <a class="btn btn-outline-secondary px-5 mt-3" asp-controller="Dashbourd" asp-action="Mobiles" asp-route-active="Mobiles">Back To Dashbourd</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mt-4" >
+                <h3>Mobile Photo</h3>
+                <div class="form-group @(Model.Mobile.id == 0 ? "d-none" : "")" id="imageholder">
+                    <img src="@(Model.Mobile.id == 0 ? String.Empty: Model.Mobile.photoURL )" alt="Mobile Photo" id="img" class="w-100" />
+                </div>
+            </div>
+         </div>
+    </form>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script>
+            let imgInput = document.getElementById("imgInput");
+            let imgholder = document.getElementById("imageholder");
+            let img = document.getElementById("img");
+            imgInput.onchange = function () {
+                let url = window.URL.createObjectURL(this.files[0])
+                img.setAttribute("src", url)
+                imgholder.classList.remove("d-none")
+             }
+
+             // Data Picker
+        $('#yearRelease').datepicker({
+            format: 'yyyy',
+            viewMode : 'years',
+            minViewMode:'years',
+            autoclose : true,
+            startDate: new Date("1/1/2000"),
+            endDate: new Date()
+        });
+
+    </script>
+}
+

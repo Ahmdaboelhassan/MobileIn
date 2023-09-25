@@ -1,0 +1,15 @@
+D:\Programming Progects\C#\Wep\MobileIn\Business\bin\Debug\net7.0\Business.deps.json
+D:\Programming Progects\C#\Wep\MobileIn\Business\bin\Debug\net7.0\Business.dll
+D:\Programming Progects\C#\Wep\MobileIn\Business\bin\Debug\net7.0\Business.pdb
+D:\Programming Progects\C#\Wep\MobileIn\Business\bin\Debug\net7.0\Data.dll
+D:\Programming Progects\C#\Wep\MobileIn\Business\bin\Debug\net7.0\Data.pdb
+D:\Programming Progects\C#\Wep\MobileIn\Business\obj\Debug\net7.0\Business.csproj.AssemblyReference.cache
+D:\Programming Progects\C#\Wep\MobileIn\Business\obj\Debug\net7.0\Business.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming Progects\C#\Wep\MobileIn\Business\obj\Debug\net7.0\Business.AssemblyInfoInputs.cache
+D:\Programming Progects\C#\Wep\MobileIn\Business\obj\Debug\net7.0\Business.AssemblyInfo.cs
+D:\Programming Progects\C#\Wep\MobileIn\Business\obj\Debug\net7.0\Business.csproj.CoreCompileInputs.cache
+D:\Programming Progects\C#\Wep\MobileIn\Business\obj\Debug\net7.0\Business.csproj.CopyComplete
+D:\Programming Progects\C#\Wep\MobileIn\Business\obj\Debug\net7.0\Business.dll
+D:\Programming Progects\C#\Wep\MobileIn\Business\obj\Debug\net7.0\refint\Business.dll
+D:\Programming Progects\C#\Wep\MobileIn\Business\obj\Debug\net7.0\Business.pdb
+D:\Programming Progects\C#\Wep\MobileIn\Business\obj\Debug\net7.0\ref\Business.dll

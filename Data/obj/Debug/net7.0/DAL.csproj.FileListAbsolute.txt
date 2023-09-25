@@ -1,0 +1,15 @@
+D:\Programming Progects\C#\Wep\MobileIn\Data\obj\Debug\net7.0\DAL.csproj.AssemblyReference.cache
+D:\Programming Progects\C#\Wep\MobileIn\Data\obj\Debug\net7.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming Progects\C#\Wep\MobileIn\Data\obj\Debug\net7.0\DAL.AssemblyInfoInputs.cache
+D:\Programming Progects\C#\Wep\MobileIn\Data\obj\Debug\net7.0\DAL.AssemblyInfo.cs
+D:\Programming Progects\C#\Wep\MobileIn\Data\obj\Debug\net7.0\DAL.csproj.CoreCompileInputs.cache
+D:\Programming Progects\C#\Wep\MobileIn\Data\bin\Debug\net7.0\DAL.deps.json
+D:\Programming Progects\C#\Wep\MobileIn\Data\bin\Debug\net7.0\DAL.dll
+D:\Programming Progects\C#\Wep\MobileIn\Data\bin\Debug\net7.0\DAL.pdb
+D:\Programming Progects\C#\Wep\MobileIn\Data\bin\Debug\net7.0\BOL.dll
+D:\Programming Progects\C#\Wep\MobileIn\Data\bin\Debug\net7.0\BOL.pdb
+D:\Programming Progects\C#\Wep\MobileIn\Data\obj\Debug\net7.0\DAL.csproj.CopyComplete
+D:\Programming Progects\C#\Wep\MobileIn\Data\obj\Debug\net7.0\DAL.dll
+D:\Programming Progects\C#\Wep\MobileIn\Data\obj\Debug\net7.0\refint\DAL.dll
+D:\Programming Progects\C#\Wep\MobileIn\Data\obj\Debug\net7.0\DAL.pdb
+D:\Programming Progects\C#\Wep\MobileIn\Data\obj\Debug\net7.0\ref\DAL.dll

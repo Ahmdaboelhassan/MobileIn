@@ -1,0 +1,84 @@
+﻿@using Business.SD;
+@model OrderViewModel;
+@{
+    Layout = "DashbourdLayout";
+}
+<link asp-append-version="true" href="~/css/userorder.css" rel="stylesheet" />
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center  mt-5">
+        <h2>Your Order Status</h2>
+        <a class="btn btn-primary" asp-controller="Dashbourd" asp-action="ManageOrder" asp-route-active="Orders">Back To Dashbourd</a>
+    </div>
+    <hr>
+    @if (Model.orderHeader is not null)
+    {
+        <div class="row justify-content-between">
+            <div class="col-md-6">
+                <div class="order-status">
+                    <h6>Current Order Status:</h6>
+                    <h4>@Model.orderHeader.OrderStatus</h4>
+                </div>
+                <div class="payment-status">
+                    <h6>Payment Status:</h6>
+                    <h4>@Model.orderHeader.PaymentStatus</h4>
+                </div>
+                <hr>
+                <h2>Other Info</h2>
+                <ul>
+                    <li>Order Data : <strong class="Text-primary">@Model.orderHeader.OrderDate.ToShortDateString()</strong></li>
+
+                    @if (Model.orderHeader.PaymentStatus == SD.Approved)
+                    {
+                        <li>Payment Date : <strong class="Text-primary">@Model.orderHeader.PaymentDate.ToShortDateString()</strong></li>
+                    }
+                    @if (Model.orderHeader.OrderStatus == SD.Shipping)
+                    {
+                        <li>Shipping Data : <strong class="Text-primary">@Model.orderHeader.ShippingDate.ToShortDateString()</strong></li>
+                    }
+                </ul>
+                <hr>
+                <h2>Order Details</h2>
+                <!-- foreach -->
+                <div class="Product">
+                    @foreach (var product in Model.orderDatials)
+                    {
+                        <h5>@product.Mobile.name <strong>X @product.Count</strong></h5>
+                    }
+                </div>
+                <div class="mt-5">
+                <hr>
+                    <a asp-action="ShipOrder" asp-route-id="@Model.orderHeader.Id" class="btn btn-success px-5 py-2">Ship Order</a> |
+                    <a asp-action="CancelOrder" asp-route-id="@Model.orderHeader.Id" class="btn btn-danger py-2">Remove Order</a>
+                </div>
+            </div>
+            <div class="col-md-4 user-info">
+                <div class="info mb-5">
+                    <img src="@(Model.orderHeader.ApplicationUser.profilePicture == null?"~/Images/User/placeHolder.png":Model.orderHeader.ApplicationUser.profilePicture)" alt="Profile Picture">
+                </div>
+                <div class="info mb-3">
+                    <h5>First Name</h5>
+                    <span>@Model.orderHeader.firstName</span>
+                </div>
+                <div class="info  mb-3">
+                    <h5>Last Name</h5>
+                    <span>@Model.orderHeader.lastName</span>
+                </div>
+                <div class="info  mb-3">
+                    <h5>address</h5>
+                    <span>@Model.orderHeader.address</span>
+                </div>
+                <div class="info  mb-3">
+                    <h5>Phone Number</h5>
+                    <span>@Model.orderHeader.PhoneNumber</span>
+                </div>
+            </div>
+            
+        </div>
+    }
+    @if (Model.orderHeader is null)
+    {
+        <div class="alert alert-dark" role="alert">
+            You Have not make order yet !
+        </div>
+    }
+</div>

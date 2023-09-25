@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Company>
+@{
+    Layout = "DashbourdLayout";
+    ViewData["Title"] = "Manage Companies";
+}
+<link href="~/css/dashbourd.css" rel="stylesheet" asp-append-version="true" />
+<body>
+    <div class="holder" >
+        <div class="left-side">
+            <partial name="_DashbourdPartial" />
+        </div>
+        <div class="right-side">
+            <body>
+                <div class="p-5">
+                    <div class="d-flex justify-content-between">
+                       <h2>Mange Compnies...</h2>
+                        <a asp-controller="Company" asp-action="CompanyGET"  class="btn btn-primary px-5 py-3">Add New Company</a>
+                    </div>
+                    <hr />
+                    <table class="table">
+                        <thead>
+                            <th>Company Name</th>
+                            <th>Company Aress</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                        @foreach(var company in Model){
+                          <tr>
+                            <td>@company.name</td>
+                            <td>@company.address</td>
+                            <td>
+                                <div class="buttons text-end pe-2">
+                                    <a class="btn btn-success px-5" asp-controller="Company" asp-action="CompanyGET" asp-route-id="@company.id">Update</a> |
+                                    <a class="btn btn-danger px-4" onclick="DeleteCompany(@company.id)">Delete</a>
+                                </div>
+                            </td>
+                          </tr>
+                          }
+                        </tbody>
+                    </table>
+                </div>
+            </body>
+        </div>
+    </div>
+</body>
+@section Scripts{
+    <script>
+        function DeleteCompany(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Admin/Company/DeleteCompany/" + id,
+                        type : "DELETE",
+                        success : () =>{
+                        location.reload();
+              
+                        } 
+                    })
+                    
+                   
+                }
+            })
+        }
+    </script>
+}

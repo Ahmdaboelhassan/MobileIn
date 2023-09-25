@@ -1,0 +1,55 @@
+﻿<link href="~/css/dashbourd.css" rel="stylesheet"  asp-append-version="true"/>
+@{
+    Layout = "DashbourdLayout";
+    ViewData["Title"] = "Manage Orders";
+}
+<body>
+    <div class="holder">
+        <div class="left-side">
+            <partial name="_DashbourdPartial" />
+        </div>
+            <div class="right-side">
+                <div class="p-5">
+                    <div class="d-flex justify-content-between">
+                        <h2>Mange Orders...</h2>
+                            <a asp-controller="Order" asp-action="ShipAll" class="btn btn-success px-5 py-3">Ship All Pending</a> 
+                    </div>
+                    <hr />
+                    @*Start Data Table*@
+                    <table id="OrderTable" class="stripe hover">
+                        <thead>
+                            <th>FName</th>
+                            <th>LName</th>
+                            <th>Address</th>
+                            <th>Price</th>
+                            <th>Order</th>
+                            <th>Payment</th>
+                            <th>Controlling</th>
+                        </thead>
+                    </table>
+                </div>
+        </div>
+    </div>
+</body>
+
+@section Scripts{
+    <script>
+        let MobileTable = $('#OrderTable').DataTable({
+            ajax: {
+                url: '/Admin/Dashbourd/OrdersJson',
+            },
+            columns : [
+                { data: "firstName" , width :"10%" },
+                { data: "lastName", width: "10%" },
+                { data: "address", width: "10%" },
+                { data: "finalPrice", width: "15%" },
+                { data: "orderStatus", width: "15%"},
+                { data: "paymentStatus", width: "15%" },
+                { data: "id", width: "20%",
+                    render: (data) => ` <a  href="/Admin/Order/OrderDetails/?id=${data}" class="btn btn-secondary">More Details</a>`
+                },
+
+            ]
+        });
+    </script>
+}

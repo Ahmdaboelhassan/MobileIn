@@ -1,0 +1,44 @@
+﻿@using Business.SD;
+@{
+    string Companies = "";
+    string Processors = "";
+    string Mobiles = "";
+    string Users = "";
+    string Orders = "";
+    var active = Context.Request.Query["active"];
+    @switch (active)
+    {
+        case "Companies":
+        case null:
+            Companies = "active";
+            break; 
+        case "Processors":
+            Processors = "active"; 
+            break;
+        case "Mobiles":
+            Mobiles = "active";
+            break; 
+        case "Users":
+            Users = "active";
+            break;
+        case "Orders":
+            Orders = "active";
+            break;
+    }
+
+}
+
+<ul>
+    <li class="@Companies"><a asp-area="Admin" asp-controller="Dashbourd" asp-action="Index" asp-route-active="Companies"> <i class="fa-solid fa-building"></i> Companies</a></li>
+    <li class="@Processors"><a asp-area="Admin" asp-controller="Dashbourd" asp-action="Processors" asp-route-active="Processors"><i class="fa-solid fa-microchip"></i> Processors</a></li>
+    <li class="@Mobiles"><a asp-area="Admin" asp-controller="Dashbourd" asp-action="Mobiles" asp-route-active="Mobiles"><i class="fa-solid fa-mobile"></i> Mobiles</a></li>
+    @if (User.IsInRole(SD.SuperAdmin))
+    {
+        <li class="@Users"><a asp-area="Admin" asp-controller="Dashbourd" asp-action="Users" asp-route-active="Users"><i class="fa-solid fa-user"></i> Users</a></li>
+    }
+    <li class="@Orders"><a asp-area="Admin" asp-controller="Dashbourd" asp-action="ManageOrder" asp-route-active="Orders"><i class="fa-solid fa-location-dot"></i> Orders</a></li>
+</ul>
+
+
+
+

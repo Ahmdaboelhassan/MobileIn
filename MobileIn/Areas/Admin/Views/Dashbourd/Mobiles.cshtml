@@ -1,0 +1,94 @@
+﻿<link href="~/css/dashbourd.css" rel="stylesheet" asp-append-version="true" />
+@{
+    Layout = "DashbourdLayout";
+    ViewData["Title"] = "Manage Mobiles";
+}
+<body>
+    <div class="holder">
+        <div class="left-side">
+            <partial name="_DashbourdPartial" />
+        </div>
+        <div class="right-side">
+            <div class="right-side">
+                <div class="p-5">
+                    <div class="d-flex justify-content-between">
+                        <h2>Mange Mobiles...</h2>
+                        <a asp-controller="Mobile" asp-action="MobileGET"  class="btn btn-primary px-5 py-3">Add New Mobiles</a>
+                    </div>
+                    <hr />
+                       @*Start Data Table*@
+                        <table id="MobileTable" class="stripe hover">
+                            <thead>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Year Release</th>
+                                <th>Size</th>
+                                <th >RAM</th>
+                                <th>Price</th>
+                                <th>Controlling</th>
+                            </thead>
+                        </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+@section Scripts{
+<script>
+    
+        let MobileTable = $('#MobileTable').DataTable({
+            ajax: {
+                url: '/Admin/Dashbourd/MobilesJson',
+                
+              },
+         columns: [
+                {
+                   data: "photoURL"
+                 , render : function (data){
+                   return `<img src="${data}" style="height:50px" alt="Mobile Image"/>`
+                    },
+                    width : "10%"
+                },
+                { data: "name"  , width:"25%"},
+                { data: "yearRelease", width: "10%"},
+                { data: "size", width: "15%"},
+                { data: "ram", width: "5%" },
+                { data: "price" , width: "15%" },
+                { data: "id", width: "20%"
+                 ,render : function (data) {
+                     return `
+                        <div class="d-flex justify-content-around">
+                            <a class="btn btn-success" href="/Admin/Mobile/MobileGET/?id=${data}">Update</a>
+                             <a class="btn btn-danger" onclick="DeleteMobile(${data})">Delete</a>
+                         </div>` }
+                 },
+               ]  
+        });
+
+        function DeleteMobile(id){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Admin/Mobile/MobileDelete/" + id,
+                        type: "DELETE",
+                        success: () => {
+                            location.reload();
+
+                        }
+                    })
+
+                }
+            })
+        }
+</script>
+}
